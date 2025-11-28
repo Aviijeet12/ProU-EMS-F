@@ -1,21 +1,16 @@
-"use client";
+"use client"
 
-import type { Employee } from "@/context/data-context";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Mail, Building, Edit, Trash2 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+import type { Employee } from "@/context/data-context"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { MoreHorizontal, Mail, Building, Edit, Trash2 } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
 interface EmployeeCardProps {
-  employee: Employee;
-  onEdit: (employee: Employee) => void;
-  onDelete: (employee: Employee) => void;
+  employee: Employee
+  onEdit: (employee: Employee) => void
+  onDelete: (employee: Employee) => void
 }
 
 export function EmployeeCard({ employee, onEdit, onDelete }: EmployeeCardProps) {
@@ -26,12 +21,11 @@ export function EmployeeCard({ employee, onEdit, onDelete }: EmployeeCardProps) 
           <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center group-hover:scale-105 transition-transform">
             <span className="text-xl font-bold text-primary">
               {employee.name
-                ?.split(" ")
+                .split(" ")
                 .map((n) => n[0])
                 .join("")}
             </span>
           </div>
-
           <div>
             <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
               {employee.name}
@@ -39,26 +33,16 @@ export function EmployeeCard({ employee, onEdit, onDelete }: EmployeeCardProps) 
             <p className="text-sm text-muted-foreground">{employee.position}</p>
           </div>
         </div>
-
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 text-muted-foreground hover:text-foreground"
-            >
+            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-
           <DropdownMenuContent align="end" className="glass border-border/50">
-            <DropdownMenuItem
-              onClick={() => onEdit(employee)}
-              className="gap-2"
-            >
+            <DropdownMenuItem onClick={() => onEdit(employee)} className="gap-2">
               <Edit className="h-4 w-4" /> Edit
             </DropdownMenuItem>
-
             <DropdownMenuItem
               onClick={() => onDelete(employee)}
               className="gap-2 text-destructive focus:text-destructive"
@@ -74,7 +58,6 @@ export function EmployeeCard({ employee, onEdit, onDelete }: EmployeeCardProps) 
           <Mail className="h-4 w-4" />
           <span className="truncate">{employee.email}</span>
         </div>
-
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Building className="h-4 w-4" />
           <span>{employee.department}</span>
@@ -88,12 +71,15 @@ export function EmployeeCard({ employee, onEdit, onDelete }: EmployeeCardProps) 
             "rounded-lg",
             employee.status === "active"
               ? "border-primary/50 bg-primary/10 text-primary"
-              : "border-muted-foreground/50 bg-muted text-muted-foreground"
+              : "border-muted-foreground/50 bg-muted text-muted-foreground",
           )}
         >
           {employee.status === "active" ? "● Active" : "○ Inactive"}
         </Badge>
+        <span className="text-xs text-muted-foreground">
+          Joined {new Date(employee.joinDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+        </span>
       </div>
     </div>
-  );
+  )
 }

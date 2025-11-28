@@ -41,9 +41,9 @@ export default function AdminDashboardPage() {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
   const activeEmployees = employees.filter((e) => e.status === "active").length
-  const pendingTasks = tasks.filter((t) => t.status === "todo").length
+  const pendingTasks = tasks.filter((t) => t.status === "pending").length
   const inProgressTasks = tasks.filter((t) => t.status === "in-progress").length
-  const completedTasks = tasks.filter((t) => t.status === "done").length
+  const completedTasks = tasks.filter((t) => t.status === "completed").length
   const recentTasks = [...tasks]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 4)
@@ -65,7 +65,7 @@ export default function AdminDashboardPage() {
 
   const confirmDeleteTask = () => {
     if (deletingTask) {
-      deleteTask(deletingTask._id)
+      deleteTask(deletingTask.id)
       toast.success("Task deleted successfully")
       setDeletingTask(null)
     }
@@ -90,12 +90,14 @@ export default function AdminDashboardPage() {
           title="Total Employees"
           value={employees.length}
           change={`${activeEmployees} active`}
+          changeType="positive"
           icon={Users}
         />
         <StatsCard
           title="Total Tasks"
           value={tasks.length}
           change={`${pendingTasks} pending`}
+          changeType="neutral"
           icon={CheckSquare}
           iconColor="text-accent"
         />
@@ -103,6 +105,7 @@ export default function AdminDashboardPage() {
           title="In Progress"
           value={inProgressTasks}
           change="Active tasks"
+          changeType="neutral"
           icon={Clock}
           iconColor="text-info"
         />
@@ -110,6 +113,7 @@ export default function AdminDashboardPage() {
           title="Completed"
           value={completedTasks}
           change={`${Math.round((completedTasks / tasks.length) * 100) || 0}% completion rate`}
+          changeType="positive"
           icon={TrendingUp}
         />
       </div>
@@ -222,7 +226,7 @@ export default function AdminDashboardPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {recentTasks.map((task) => (
-            <TaskCard key={task._id} task={task} onEdit={handleEditTask} onDelete={handleDeleteTask} />
+            <TaskCard key={task.id} task={task} onEdit={handleEditTask} onDelete={handleDeleteTask} />
           ))}
         </div>
       </div>
