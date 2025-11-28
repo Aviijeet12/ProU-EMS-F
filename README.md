@@ -1,4 +1,9 @@
-
+# Demo Video 
+- https://drive.google.com/file/d/1tmbmnxyBPM7g3UI58IQoKPA_yIbNGgOK/view?usp=sharing
+# Vercel Deployed
+- https://pro-u-ems-f-42xz.vercel.app
+# Bonus task
+- Implemented a local storage persistence so that when the user adds a new task or changes status, the data persists a er a page refresh. 
 # Employee Task Tracker
 
 This is a single-page responsive web application for tracking employees and their assigned tasks. The backend is under development, so this project uses mock JSON data and is frontend-only.
